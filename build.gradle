@@ -186,34 +186,6 @@ protobuf {
     }
 }
 
-cargo {
-    module = "."
-    libname = "zcashwalletsdk"
-    targets = [
-        "arm",
-        "arm64",
-        "x86",
-        "x86_64"
-    ]
-    profile = "release"
-    forceTargets = true
-    prebuiltToolchains = true
-    variants {
-        zcashmainnetDebug {
-            defaultFeaturesAnd("mainnet")
-        }
-        zcashmainnetRelease {
-            defaultFeaturesAnd("mainnet")
-        }
-        zcashtestnetDebug {
-        }
-        zcashtestnetRelease {
-        }
-    }
-    exec { spec, toolchain ->
-        spec.environment("PATH", "/srv/zcashd/.cargo/bin/")
-    }
-}
 
 dependencies {
 
