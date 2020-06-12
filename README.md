@@ -1,3 +1,7 @@
+[![license](https://img.shields.io/github/license/zcash/zcash-android-wallet-sdk.svg?maxAge=2592000&style=plastic)](https://github.com/zcash/kotlin-bip39/blob/master/LICENSE)
+[![@gmale](https://img.shields.io/badge/contact-android@z.cash-5AA9E7.svg?style=plastic)](https://github.com/gmale)
+![Bintray](https://img.shields.io/bintray/v/ecc-mobile/android/sdk-mainnet?color=success&style=plastic)
+
 This is a beta build and is currently under active development. Please be advised of the following:
 
 - This code currently is not audited by an external security auditor, use it at your own risk
@@ -9,7 +13,7 @@ This is a beta build and is currently under active development. Please be advise
 
 - The Zcash Android Wallet SDK is experimental and a work in progress. Use it at your own risk.
 - Developers using this SDK must familiarize themselves with the current [threat
-  model](docs/ThreatModel.md), especially the known weaknesses described there.
+  model](https://zcash.readthedocs.io/en/latest/rtd_pages/wallet_threat_model.html), especially the known weaknesses described there.
 
 ---
 
@@ -78,10 +82,26 @@ To accomplish this, these responsibilities of the SDK are divided into separate 
 
 ## Quickstart
 
-Add the SDK dependency
+Add flavors for testnet v mainnet. Since `productFlavors` cannot start with the word 'test' we recommend:
+```groovy
+flavorDimensions 'network'
+productFlavors {
+    // would rather name them "testnet" and "mainnet" but product flavor names cannot start with the word "test"
+    zcashtestnet {
+        dimension 'network'
+        matchingFallbacks = ['zcashtestnet', 'debug']
+    }
+    zcashmainnet {
+        dimension 'network'
+        matchingFallbacks = ['zcashmainnet', 'release']
+    }
+}
+```
+Add the matching SDK dependency for each variant:
 
-```gradle
-implementation "cash.z.android.wallet:zcash-android-testnet:1.0.0-alpha01@aar"
+```groovy
+zcashmainnetImplementation "cash.z.ecc.android:sdk-mainnet:${version}@aar"
+zcashtestnetImplementation "cash.z.ecc.android:sdk-testnet:${version}@aar"
 ```
 
 Start the [Synchronizer](docs/-synchronizer/README.md)
@@ -122,7 +142,8 @@ rustup target add armv7-linux-androideabi aarch64-linux-android i686-linux-andro
     <img src="assets/sdk-manager-icon.png?raw=true" width="70%"/>
 </p>    
 
-  6. Then, install NDK 20.0.5594570 
+  6. Then, install NDK ~~20.0.5594570~~ 21.1.6352462     
+     (pro tip: build.gradle -> `ndkVersion` defines the actual required version. This README may get out-of-date)
 <p align="center">
     <img src="assets/ndk-window.png?raw=true" width="85%"/>
 </p>    
