@@ -32,9 +32,12 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y \
     && rustup target add aarch64-linux-android \
     && rustup target add i686-linux-android
 
-ENV ANDROID_HOME=/srv/zcash/.android
-ENV ANDROID_SDK_ROOT=/srv/zcash/.android
+ENV ANDROID_HOME=/srv/zcashd/.android
+ENV ANDROID_SDK_ROOT=/srv/zcashd/.android
 ENV PATH=~/.cargo/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:~/.android/platform-tools
+
+ENV RUSTUP_HOME=/srv/zcash/.cargo
+ENV CARGO_HOME=/srv/zcash/.cargo
 
     # && echo 'export PATH=/root/.cargo/bin:$PATH' >> /root/.bashrc \
     # && export PATH=/root/.cargo/bin:$PATH \
