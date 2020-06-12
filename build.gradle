@@ -169,6 +169,10 @@ protobuf {
     }
 }
 
+task environment(type: Exec) {
+    commandLine 'env'
+}
+
 cargo {
     module = "."
     libname = "zcashwalletsdk"
